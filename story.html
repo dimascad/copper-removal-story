@@ -296,18 +296,24 @@
   <p>Validated numbers: skin depth 18.9&nbsp;mm (field penetrates the 30&nbsp;mm crucible → it stirs),
   stir velocity 2.2&nbsp;mm/s, mass conserved to 0.9%.</p>
   <div class="correction" style="background:#eef4fb;border-color:#cfe0f2;border-left-color:#0b5394;color:#15324f;">
-  <b>The testable prediction.</b> Even at a vigorous 2.2&nbsp;mm/s stir, only ~18% of the steel's copper
-  crosses into the matte in 30&nbsp;minutes. The stir homogenizes the *bulk* steel quickly, but copper
-  crosses the interface slowly at the real diffusivity — so the <b>rate-limiting step is interfacial mass
-  transfer, not bulk mixing</b>. The practical lever is interfacial <b>area</b> (disperse the matte into
-  droplets / flotation), not more coil power. This is falsifiable: removal rate should scale with
-  interfacial area and saturate with stir intensity. It independently reproduces the surface-vs-volume
-  ceiling from Part&nbsp;2.</p></div>
-  <figure><img src="two_levers.png" alt="two levers: stir flat, area rising">
-    <figcaption>Figure&nbsp;10b. Two model sweeps, opposite verdicts. <b>(a)</b> 45&times; more induction
-    stir → copper removal unchanged (14.2%). <b>(b)</b> at fixed stir, 30&times; more interfacial
-    transport/area → removal nearly triples (14→40%). The actionable prediction: <b>disperse the matte to
-    raise contact area; don't over-power the coil.</b></figcaption></figure>
+  <b>The testable prediction — two levers, one verdict.</b> The model has two distinct knobs, and they
+  behave differently. <b>Stir</b> thins the diffusion film at the interface ($k_m\!\propto\!D/\delta$,
+  $\delta\!\propto\!1/\sqrt{u}$), so removal <i>does</i> rise with coil power — but only as $\sqrt{u}$:
+  in the sweep, <b>45× more stir buys just ~1.5× more copper removed</b> (≈17→25% over 30&nbsp;min).
+  Strongly diminishing returns. <b>Interfacial area</b>, by contrast, multiplies the removal <i>rate</i>
+  directly ($\dot C\!\propto\!k_m a$) — disperse the matte into droplets and <b>30× more contact area drives
+  3.5× more removal</b> (20→70% over the same 30&nbsp;min), pushing toward the thermodynamic ceiling. So the
+  rate-limiting step is interfacial mass transfer, and the <b>scalable lever is area, not coil power</b>:
+  the √-law stir knob plateaus near 25%; the area knob keeps climbing toward the equilibrium floor. This is
+  falsifiable — removal rate should rise sublinearly (√) with stir and linearly with interfacial area — and
+  it independently reproduces the surface-vs-volume ceiling from Part&nbsp;2.</p></div>
+  <figure><img src="two_levers.png" alt="two levers: stir sublinear, area linear">
+    <figcaption>Figure&nbsp;10b. Two model sweeps from the same operating point (stir 2.26&nbsp;mm/s,
+    19.9% baseline). <b>(a)</b> 45&times; more induction stir → only ~1.5&times; more copper removed
+    (17→25%): the √-law of boundary-layer thinning, so stir <i>saturates</i>. <b>(b)</b> at fixed stir,
+    30&times; more interfacial area → 3.5&times; more removal (20→70%), driving toward the equilibrium
+    ceiling — because the removal <i>rate</i> is linear in area. The actionable prediction: <b>disperse the
+    matte to raise contact area; don't over-power the coil.</b></figcaption></figure>
   <p style="font-size:13px;color:#5a6b80;"><i>Provenance: the electromagnetics, Joule heat, and
   Lorentz-stir are first-principles Maxwell + Navier–Stokes. The partition is modeled as an affinity
   drift calibrated to the CALPHAD partition L≈18 (TCOX14). Material properties are realistic but
@@ -319,9 +325,17 @@
 <div class="guide">
   <h3 style="margin-top:0;">Guidance for the Fontana-lab melt</h3>
   <ul>
-    <li><b>Stirring is mandatory, not optional.</b> The route is transport-limited (Panels&nbsp;3, 7).
-      Unstirred, copper takes days to reach an interface; a stirred ~0.5&nbsp;mm boundary layer makes it
-      minutes. Use a motor-driven graphite rod with logged RPM.</li>
+    <li><b>Area is the scalable lever — emulsify the matte.</b> The model says removal rises ~linearly with
+      steel/matte contact area but only as √(stir). So the single highest-leverage move is to break the
+      matte into <b>fine droplets dispersed in the steel</b>, not to crank the coil. Droplet breakup is set
+      by the Weber number $We=\rho u^2 d/\sigma$: emulsify with <b>gas injection</b> (argon lance / porous
+      plug — the standard ladle-metallurgy method, rising bubbles shear the interface) and/or a
+      <b>high-shear impeller</b>, and/or lower the steel/matte interfacial tension $\sigma$ with flux
+      composition. Induction stir alone is too gentle to emulsify — that is exactly why panel&nbsp;(a)
+      saturates.</li>
+    <li><b>Stirring is still mandatory.</b> The route is transport-limited (Panels&nbsp;3, 7). Unstirred,
+      copper takes days to reach an interface; a stirred ~0.5&nbsp;mm boundary layer makes it minutes. Use a
+      motor-driven graphite rod with logged RPM — but treat stir as the floor, emulsification as the lever.</li>
     <li><b>Lead with a high-Na₂S sulfide flux</b> — it does the bulk removal (partition ~18). Watch the
       <b>dose</b>: too little flux and the equilibrium floor sits above 0.10&nbsp;wt% (Panel&nbsp;8), so
       use enough matte or pair it with the pump.</li>
@@ -331,6 +345,18 @@
       recover copper as metal — only worth it once you are flux-limited.</li>
     <li><b>Run a no-additive control melt</b> under identical conditions, and measure Cu wt% before/after
       (OES or XRF). Fe₂O₃ powder as an oxygen vehicle, open air.</li>
+  </ul>
+  <h3 style="margin-bottom:6px;">Characterizing interfacial area (so the "area lever" is measurable, not hand-waved)</h3>
+  <ul>
+    <li><b>Quench &amp; section.</b> Rapidly quench a melt sample, polish, image the frozen matte droplets
+      (optical / SEM) → droplet-size distribution → specific area $a=6\phi/\bar d$. This is the direct
+      readout of how well you emulsified.</li>
+    <li><b>Removal kinetics.</b> Sample Cu vs time and fit $dC/dt=-k_m a\,(C-C_\mathrm{eq})$ → the lumped
+      $k_m a$. Repeat across gas-flow / impeller-speed settings → that <i>is</i> the area-lever curve,
+      measured. It tests the model's linear-in-area, sublinear-in-stir prediction head-on.</li>
+    <li><b>Cold model (optional, cheap).</b> Transparent water (steel) + oil (matte) with matched
+      density/viscosity/interfacial-tension ratios; high-speed video of droplet breakup vs shear → a
+      Weber-number correlation $\bar d(u)$ you can apply back to the melt.</li>
   </ul>
 </div>
 
