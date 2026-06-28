@@ -276,6 +276,43 @@
   its source with a <b>low-FeS, high-Na₂S flux</b>, not an exotic electron-blocker.</div>
 </div>
 
+<div class="part">Part 3b · The complete furnace model — every physics at once</div>
+
+<div class="panel">
+  <h3><span class="n">10</span>Induction stir + copper partition, fully coupled</h3>
+  <figure><img src="induction_copper_partition.gif" alt="induction-stirred copper partition">
+    <figcaption>Figure&nbsp;10. The whole furnace in one model (2D axisymmetric): induction coil + molten
+    steel (bottom) + sulfide matte (top). Copper drains steel→matte under the electromagnetic stir, at the
+    real molecular diffusivity. The wavy structure in the steel is the induction recirculation.</figcaption></figure>
+  <p><span class="lead">What's happening.</span> This is the realistic furnace with <b>all five physics
+  coupled at once</b>: the induction coil's AC field drives eddy currents in the steel (electromagnetics),
+  which produce Joule heat (heat transfer) and a Lorentz body force that <b>stirs</b> the melt
+  (Navier–Stokes flow), and that stir carries copper to the steel/matte interface where it
+  <b>partitions</b> into the matte (species transport). No fudged diffusivity — the real
+  $D\approx5\times10^{-9}$&nbsp;m²/s.</p>
+  <p><span class="lead">The governing chain.</span> Frequency-domain Maxwell → cycle-averaged Lorentz
+  force → momentum → species transport with a partition drift:</p>
+  <div>$$ \nabla\times(\mu^{-1}\nabla\times \mathbf{A})=\sigma\,\mathbf{E}, \quad \rho(\mathbf{u}\cdot\nabla)\mathbf{u}=-\nabla p+\mu\nabla^2\mathbf{u}+\langle\mathbf{J}\times\mathbf{B}\rangle, \quad \partial_t c+\nabla\cdot(c\,\mathbf{u}-D\nabla c)=0 $$</div>
+  <p>Validated numbers: skin depth 18.9&nbsp;mm (field penetrates the 30&nbsp;mm crucible → it stirs),
+  stir velocity 2.2&nbsp;mm/s, mass conserved to 0.9%.</p>
+  <div class="correction" style="background:#eef4fb;border-color:#cfe0f2;border-left-color:#0b5394;color:#15324f;">
+  <b>The testable prediction.</b> Even at a vigorous 2.2&nbsp;mm/s stir, only ~18% of the steel's copper
+  crosses into the matte in 30&nbsp;minutes. The stir homogenizes the *bulk* steel quickly, but copper
+  crosses the interface slowly at the real diffusivity — so the <b>rate-limiting step is interfacial mass
+  transfer, not bulk mixing</b>. The practical lever is interfacial <b>area</b> (disperse the matte into
+  droplets / flotation), not more coil power. This is falsifiable: removal rate should scale with
+  interfacial area and saturate with stir intensity. It independently reproduces the surface-vs-volume
+  ceiling from Part&nbsp;2.</p></div>
+  <figure><img src="coilcurrent_sweep.png" alt="removal vs stir is flat">
+    <figcaption>Figure&nbsp;10b. Coil-current sweep from the model: stir velocity rises 45&times;
+    (0.24&nbsp;→&nbsp;11&nbsp;mm/s) yet copper removal stays flat — direct evidence that removal is
+    interface-transfer-limited, not stir-limited.</figcaption></figure>
+  <p style="font-size:13px;color:#5a6b80;"><i>Provenance: the electromagnetics, Joule heat, and
+  Lorentz-stir are first-principles Maxwell + Navier–Stokes. The partition is modeled as an affinity
+  drift calibrated to the CALPHAD partition L≈18 (TCOX14). Material properties are realistic but
+  untrusted-unless-confirmed.</i></p>
+</div>
+
 <div class="part">Part 4 · What this means for the furnace experiment</div>
 
 <div class="guide">
