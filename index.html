@@ -280,15 +280,17 @@
 
 <div class="panel">
   <h3><span class="n">10</span>Induction stir + copper partition, fully coupled</h3>
-  <figure>
-    <img src="induction_stir_native.gif" alt="native COMSOL induction stir |u|, cropped to the melt">
-    <img src="induction_copper_native.gif" alt="native COMSOL copper draining steel to matte, cropped to the melt">
+  <figure style="text-align:center;">
+    <img src="induction_stir_native.gif" alt="native COMSOL induction stir |u|, cropped to the melt" style="max-width:250px;vertical-align:top;margin:0 6px;">
+    <img src="induction_copper_native.gif" alt="native COMSOL copper draining steel to matte, cropped to the melt" style="max-width:250px;vertical-align:top;margin:0 6px;">
     <figcaption>Figure&nbsp;10. Native COMSOL renders (logo top-right), 2D axisymmetric, cropped to the melt.
-    <b>Top —</b> the induction stir: velocity magnitude up to 2.3&nbsp;mm/s, whose structure traces the
-    recirculation eddy the coil drives. <b>Bottom —</b> copper over the same run: the steel (lower half)
-    stays nearly full while only a thin band crosses into the matte above the interface. Vigorous stir, slow
-    interfacial crossing — removal is interface-limited, not mixing-limited.</figcaption></figure>
-  <figure><img src="induction_stir_streamlines.gif" alt="animated induction stir streamlines with moving points" style="max-width:360px;">
+    <b>Left —</b> the induction stir: velocity magnitude up to 2.3&nbsp;mm/s, tracing the recirculation eddy
+    the coil drives. <b>Right —</b> copper over the same run: the steel stays nearly full while only a thin
+    band crosses into the matte above the interface. Vigorous stir, slow interfacial crossing — the robust
+    finding is that removal is <b>interface-limited, not mixing-limited</b>. (The <i>magnitude</i> of removal
+    is model-dependent — ~15–25% over a 4× range of the interface-smoothing parameter — so we report the
+    mechanism, not a precise number; see Part&nbsp;4.)</figcaption></figure>
+  <figure style="text-align:center;"><img src="induction_stir_streamlines.gif" alt="animated induction stir streamlines with moving points" style="max-width:300px;">
     <figcaption>Figure&nbsp;10c. The stir's flow lines, animated: massless points flow along the streamlines
     through a large recirculation cell over a counter-cell, up to 2.3&nbsp;mm/s — the eddy the induction field
     drives.</figcaption></figure>
