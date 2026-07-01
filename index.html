@@ -106,8 +106,9 @@
   <p><span class="lead">What's happening.</span> The driving voltage is clean and constant. The catch:
   in a real sulfide melt most current leaks through <b>electrons</b>, not copper ions.</p>
   <div>$$ \nabla\cdot(\sigma\,\nabla\varphi)=0, \qquad \mathbf{i}=-\sigma\,\nabla\varphi, \qquad t_{\mathrm{Cu}}=\frac{z^2 c_{\mathrm{Cu}} D_{\mathrm{Cu}}}{\sum_i z_i^2 c_i D_i} $$</div>
-  <p>Molten sulfide mattes are <b>predominantly electronic conductors</b> (measured electronic
-  transference 0.73–0.85), so $t_{\mathrm{Cu}}$ is small — copper rides only a fraction of the current.</p>
+  <p>Molten sulfide mattes are <b>predominantly electronic conductors</b> ($\sigma_e\!\approx\!7000$&nbsp;S/m;
+  measured electronic transference 0.73–0.85), so $t_{\mathrm{Cu}}$ is small — copper rides only a fraction of
+  the current, and in raw matte the leak nearly shorts the cell (quantified in Panel&nbsp;9).</p>
 </div>
 
 <!-- 5 -->
@@ -230,50 +231,84 @@
   0.10&nbsp;wt% limit, forever. The <b>electro pump removes that floor</b> by draining copper from the
   matte, keeping the partition alive so the steel keeps giving copper up. Its real value is not "+X%
   parallel removal" but <b>converting a saturating sink into one that can reach spec</b>, while
-  recovering copper as metal instead of burying it in slag. The catch — the drain is mass-transport
-  capped (Part&nbsp;2), so the benefit is real but rate-limited.</p>
+  recovering copper as metal instead of burying it in slag. Two catches: the drain is mass-transport
+  capped (Part&nbsp;2), and it only runs at all once the matte is ionic enough (Panel&nbsp;9) — and it gets
+  <b>steeply more expensive as the matte empties</b> (Panel&nbsp;9b). So the pump is a <b>polisher</b> for
+  the last stretch to spec, not the bulk remover.</p>
 </div>
 
 <!-- 9 -->
 <div class="panel">
-  <h3><span class="n">9</span>Two ways to fix the leakage — and why neither is enough alone</h3>
-  <p><span class="lead">What the leakage is.</span> In an ordinary electrolyte, current is carried by
-  <b>ions</b> — and moving ions do useful work (Cu⁺ travels to the cathode and plates). But molten
-  sulfide matte (Cu₂S–FeS) is a <b>semiconductor</b>: it also conducts by <b>electrons</b>, like a
-  partial short circuit. So a large share of the applied current is just electrons flowing straight
-  through, carrying <i>no copper</i>. The useful fraction is the <b>transference number</b> — and in
-  these melts it is only ~0.12–0.34, meaning roughly 70–90% of the current leaks as electrons. The
-  <b>Faradaic efficiency</b> is that same fraction: at baseline only ~20% of the current actually plates
-  copper.</p>
+  <h3><span class="n">9</span>The leakage, solved honestly: raw matte is futile, the additive is mandatory</h3>
+  <p><span class="lead">What the leakage is.</span> An ordinary electrolyte carries current by <b>ions</b>,
+  and every moving ion does useful work — Cu⁺ travels to the cathode and plates. Molten Cu₂S–FeS matte is a
+  <b>semiconductor</b>: it also conducts by <b>electrons</b>, which flow straight from anode to cathode like a
+  partial short circuit, carrying <i>no copper</i>. The total current splits into a Faradaic ionic branch
+  (plates copper) and an electronic branch (pure waste). The <b>Faradaic efficiency</b> is the ionic fraction,
+  $\mathrm{FE}=i_{\mathrm{ion}}/(i_{\mathrm{ion}}+i_{\mathrm{elec}})$.</p>
 
-  <p><span class="lead">The two fixes.</span> One adds ionic carriers; the other blocks the electrons.
-  The numbers below are from our COMSOL sweeps:</p>
-  <table>
-    <thead><tr><th>Fix</th><th>How it works</th><th>Faradaic efficiency</th><th>Cu output (vs flux)</th></tr></thead>
-    <tbody>
-      <tr><td><b>BaS supporting electrolyte</b></td><td>adds an ionic compound → more ion carriers, and dilutes the semiconductor</td><td>0.20 → 0.67</td><td>0.24 → <b>0.68</b></td></tr>
-      <tr><td><b>Electron-blocking layer</b></td><td>a cathode barrier that stops electrons but lets ions pass</td><td>0.20 → <b>0.96</b></td><td>0.24 → <b>0.48</b></td></tr>
-    </tbody>
-  </table>
-  <p style="font-size:13px;color:#5a6b80;margin-top:-4px;"><i>The four efficiency/output numbers are
-  <b>model-derived</b> (our COMSOL sweeps — illustrative). The ~9% below is <b>measured</b> in the
-  literature. "Cu output (vs flux)" is normalized to the chemical sulfide flux = 1.0, so both fixes,
-  at 0.68 and 0.48, still come in <b>below the flux</b>.</i></p>
+  <p><span class="lead">The model, finally with the leakage in it.</span> The earlier panels solved an
+  <i>ionic-only</i> cell — it counted 100% of the current as Faradaic, the one assumption that flatters the
+  pump most. We rebuilt it as a <b>mixed ionic–electronic conductor</b>: the Faradaic current and the
+  electronic short are solved <i>together</i> as two coupled potentials, so the efficiency is no longer
+  assumed — it <b>emerges</b>. (A regression check confirms it: take the electronic conductivity to zero and
+  the cell returns to a perfect 100% Faradaic — proof the new channel was added without corrupting the old
+  solve.)</p>
 
-  <p><span class="lead">Why the columns disagree.</span> Electron-blocking reaches the higher
-  <i>efficiency</i> (0.96 — almost no wasted current) yet the <i>lower</i> copper output (0.48), while
-  BaS, at a worse 0.67 efficiency, removes <i>more</i> copper (0.68). The reason: BaS adds ionic
-  <b>carriers</b> (more ions available to ferry copper), whereas electron-blocking only stops the leak
-  without adding any carriers.</p>
+  <figure><img src="miec_faradaic_efficiency.png" alt="Faradaic efficiency vs electronic conductivity, and vs cell voltage">
+    <figcaption>Figure&nbsp;9. <b>(a)</b> Faradaic efficiency vs the matte's electronic conductivity
+    $\sigma_e$ (the leak). Raw Cu₂S matte ($\sigma_e\!\approx\!7000$&nbsp;S/m) is <b>futile</b> (FE&nbsp;≈&nbsp;0);
+    suppressing the leak with an ionic additive climbs FE into the measured BaS–Cu₂S band (0.28–0.59).
+    <b>(b)</b> FE <i>falls</i> as the cell is driven harder — the copper current plateaus at its
+    mass-transport limit while the electronic leak keeps rising.</figcaption></figure>
+
+  <p><span class="lead">Finding 1 — raw matte is futile.</span> With no additive, the matte's electronic
+  conductivity (~7000&nbsp;S/m) so dwarfs its ionic conductivity that <b>FE ≈ 0.002</b>: essentially all the
+  current leaks as electrons and almost no copper plates. <b>You cannot electrowin from raw matte.</b></p>
+
+  <p><span class="lead">Finding 2 — the additive is mandatory, and the flux already supplies it.</span> An
+  ionic conductor — BaS, or the <b>Na₂S already in the chemical flux</b> — suppresses the electron paths and
+  pulls FE into the measured band; BaS–Cu₂S lands at <b>FE ≈ 0.51</b>, inside the literature 0.28–0.59. The
+  electro cell works <i>because</i> the same Na₂S you add to capture copper also makes the melt ionic enough
+  to electrowin. The additive is not an optional upgrade — it is the price of admission.</p>
+
+  <p><span class="lead">Finding 3 — the lever is killing the leak, not adding carriers.</span> Holding the
+  ionic conductivity fixed and varying only the <b>electronic</b> conductivity, FE tracks $\sigma_e$
+  monotonically. So efficiency is set by <b>how small you make the electronic leak</b>, not by how many ion
+  carriers you add. In practice: a <b>low-FeS, high-Na₂S flux</b> — FeS is an even stronger electronic
+  conductor than Cu₂S, so cutting iron cuts the leak at its source. (This is the mechanism behind the ~9%
+  copper current efficiency measured in a real Cu-removal furnace, where an iron-rich matte was the leak.)</p>
+</div>
+
+<!-- 9b -->
+<div class="panel">
+  <h3><span class="n">9b</span>The wall: the last copper is the most expensive</h3>
+  <p><span class="lead">A two-way loop between the chemistry and the cell.</span> As the cell strips copper
+  out of the matte, the matte itself changes — and the thermodynamics fight back. We coupled the
+  electrochemical cell directly to the CALPHAD database: at each depletion state, the cell reads the matte's
+  <b>decomposition voltage</b> (the minimum voltage to pull copper out) straight from Thermo-Calc.</p>
+
+  <figure><img src="miec_twoway_depletion.png" alt="diminishing returns: FE falls and energy rises as the matte depletes">
+    <figcaption>Figure&nbsp;9b. As the matte is decopperized ($X_{\mathrm{Cu_2S}}$&nbsp;1.0&nbsp;→&nbsp;0.2), the
+    CALPHAD decomposition voltage rises 0.42&nbsp;→&nbsp;0.63&nbsp;V (annotated), so Faradaic efficiency falls
+    0.47&nbsp;→&nbsp;0.39 and the relative energy per kg copper rises <b>~1.7×</b>.</figcaption></figure>
+
+  <p><span class="lead">Why it gets harder.</span> A copper-poor matte holds its remaining copper more
+  tightly: by thermodynamics, lower copper activity means a higher decomposition voltage (Nernst,
+  +0.149&nbsp;V per decade of activity). So you must push <i>more</i> voltage to keep extracting — but the
+  electronic leak is ohmic and grows with voltage. The depleted matte is penalized twice: a higher voltage to
+  decompose <i>and</i> a worse leak at that voltage. <b>The last copper costs ~1.7× the first.</b></p>
 
   <div class="correction" style="background:#eef4fb;border-color:#cfe0f2;border-left-color:#0b5394;color:#15324f;">
-  <b>The punchline — efficiency was never the bottleneck.</b> You can make the cell <i>nearly perfectly
-  efficient</i> (96%) and barely move the copper output. Efficiency means "don't waste current";
-  <b>efficacy</b> means "actually move copper" — different axes. The real ceiling is copper <b>supply</b>,
-  the mass-transport limit from Part&nbsp;2, which <i>no</i> conductivity or efficiency fix touches. The
-  actionable lever is the measured ~9%: a real-furnace study found copper current efficiency of only ~9%,
-  dominated by the matte's <i>iron</i> (FeS conducts electronically) — so in practice you cut the leak at
-  its source with a <b>low-FeS, high-Na₂S flux</b>, not an exotic electron-blocker.</div>
+  <b>Why it's believable.</b> The decomposition voltage the cell reads from CALPHAD — <b>0.423&nbsp;V</b> for
+  full Cu₂S — matches the <b>measured 0.45&nbsp;V</b> (Sahu–Allanore) to 6%, with no fitting. The
+  thermodynamics and the electrochemistry agree at the one place they overlap.</div>
+
+  <p><span class="lead">What it means.</span> There is no clean "pump it all out." Electro-extraction has a
+  built-in diminishing return — efficient at first, then steeply more expensive as the matte empties. That is
+  the honest ceiling on the pump as a <i>polisher</i>: it can clear the last gap to spec, but the last gap is
+  the costliest stretch — which is exactly why the bulk removal should be done <b>chemically</b>, and the
+  pump reserved for the final polish plus recovering copper as metal.</p>
 </div>
 
 <div class="part">Part 3b · The complete furnace model — every physics at once</div>
